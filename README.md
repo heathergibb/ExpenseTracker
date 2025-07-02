@@ -10,10 +10,15 @@ My goal in writing this software was to gain hands-on experience with Java synta
 # Development Environment
 
 **IDE:** Visual Studio Code
+
 **Version Control:** Git with GitHub
+
 **Programming Language:** Java 21 (OpenJDK 21.0.6 LTS)
+
 **Java Tools Used:** No build tools
+
 **Libraries:** Java Standard Library
+
 
 # Useful Websites
 
