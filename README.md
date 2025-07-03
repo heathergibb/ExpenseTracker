@@ -19,13 +19,14 @@ My goal in writing this software was to gain hands-on experience with Java synta
 
 {Make a list of websites that you found helpful in this project}
 
-- [Web Site Name](http://url.link.goes.here)
-- [Web Site Name](http://url.link.goes.here)
+- [Getting Started with Java in VS Code](https://code.visualstudio.com/docs/java/java-tutorial#:~:text=To%20use%20Java%20within%20Visual,used%20for%20developing%20Java%20applications)
+- [Oracle - Java Tutorials Learning Paths](https://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html)
+- [Programiz - Learn Java Programming](https://www.programiz.com/java-programming)
 
 # Future Work
 
 {Make a list of things that you need to fix, improve, and add in the future.}
 
-- Item 1
+- Add in the future - Allow for multiple users with different transaction files (add save/load file options)
 - Item 2
 - Item 3
