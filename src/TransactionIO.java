@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,6 +16,8 @@ public class TransactionIO {
     }
 
     public List<Transaction> loadTransactions() {
+        /* Load the transactions from the file into the transactions Array */
+
         List<Transaction> transactions = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -36,5 +40,18 @@ public class TransactionIO {
         }
 
         return transactions;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        /* Add the new transaction to the file */
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(transaction.toCsvLine());
+            writer.newLine(); // Add a new line after writing the transaction
+
+            System.out.println("Transaction saved successfully.");
+        } catch (IOException e) {
+            System.err.println("Error saving transaction: " + e.getMessage());
+        }
     }
 }

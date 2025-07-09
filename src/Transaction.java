@@ -30,4 +30,8 @@ public class Transaction {
         return type;
     }
     
+    public String toCsvLine() {
+        /* Convert the transaction to a CSV line format */
+        return String.format("%s,%s,%.2f,%s", date, description, amount, type);
+    }
 }
