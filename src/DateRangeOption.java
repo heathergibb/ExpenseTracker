@@ -1,7 +1,8 @@
 public enum DateRangeOption {
-    // Enum constants for date range options
-    // Each constant has a number and a description
-    // Numbers must be sequential starting from 1!
+    /* Enum constants for date range options
+    * Each constant has a number and a description
+    * Numbers must be sequential starting from 1! */
+
     ALL_DATES(1, "All Dates"),
     YTD(2, "Year to Date"),
     CUSTOM_RANGE(3, "Custom Range");
@@ -26,6 +27,7 @@ public enum DateRangeOption {
         return values().length;
     }
 
+    // Method to get the DateRangeOption descriptor by its number
     public static DateRangeOption fromNumber(int number) {
         for (DateRangeOption range : values()) {
             if (range.getNumber() == number) {

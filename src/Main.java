@@ -25,6 +25,9 @@ public class Main {
     private static String getDefaultFilePath() {
         /* Get the default file path for transactions csv file
          * The default file path is in .../ExpenseTracker/data/default.csv
+         * 
+         * Because Java is run from a different directory when it is run from the debugger or the terminal,
+         * the file path needs to be constructed dynamically based on the current working directory.
          */
         
         String currentDir = System.getProperty("user.dir"); // Get the current working directory
@@ -65,10 +68,10 @@ public class Main {
                 System.out.println("ADD EXPENSE");
                 System.out.println("------------------------------------------------------");
                 LocalDate date = InputHelper.promptForDate(scanner, "Enter the expense date (YYYY-MM-DD): "); // Prompt for the date
-                String description = InputHelper.promptForDescription(scanner, "Enter the description: ", 80);
+                String category = InputHelper.promptForCategory(scanner, "Enter the category: ", 80); // Prompt for the category (max 80 characters)
                 BigDecimal amount = InputHelper.promptForDollarAmount(scanner, "Enter the amount: $", true); // Prompt for the amount
                 
-                transactionManager.addTransaction(date, description, amount, TransactionType.EXPENSE);
+                transactionManager.addTransaction(date, category, amount, TransactionType.EXPENSE);
                 
                 System.out.println("\nPress Enter to continue...");
                 scanner.nextLine(); // Wait for user input to continue
@@ -78,10 +81,10 @@ public class Main {
                 System.out.println("ADD INCOME");
                 System.out.println("------------------------------------------------------");
                 date = InputHelper.promptForDate(scanner, "Enter the income date (YYYY-MM-DD): "); // Prompt for the date
-                description = InputHelper.promptForDescription(scanner, "Enter the description: ", 80);
+                category = InputHelper.promptForCategory(scanner, "Enter the category: ", 80);
                 amount = InputHelper.promptForDollarAmount(scanner, "Enter the amount: $", false); // Prompt for the amount
                 
-                transactionManager.addTransaction(date, description, amount, TransactionType.INCOME);
+                transactionManager.addTransaction(date, category, amount, TransactionType.INCOME);
                 
                 System.out.println("\nPress Enter to continue...");
                 scanner.nextLine(); // Wait for user input to continue

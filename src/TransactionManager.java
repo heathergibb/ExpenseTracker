@@ -6,41 +6,40 @@ import java.util.TreeMap;
 
 public class TransactionManager {
     public ArrayList<Transaction> transactions;
-    private TransactionIO transactionIO;
+    private String filePath; 
 
     public TransactionManager(String filePath) {
         // Initialize the transaction manager
         transactions = new ArrayList<>();
-
-        transactionIO = new TransactionIO(filePath);
+        this.filePath = filePath; // Set the file path for the transactions CSV file
 
         // Load the array with transactions from the file
-        transactions.addAll(transactionIO.loadTransactions());
+        transactions.addAll(TransactionIO.loadTransactions(filePath));
     }
 
-    public void addTransaction(LocalDate date, String description, BigDecimal amount, TransactionType type) {
+    public void addTransaction(LocalDate date, String category, BigDecimal amount, TransactionType type) {
         /* Add an expense or income transaction to the list */
                
-        Transaction newTransaction = new Transaction(date, description, amount, type);
+        Transaction newTransaction = new Transaction(date, category, amount, type);
 
         // Add the new transaction to the transactions array
         transactions.add(newTransaction);
 
         // Save the transaction to the file
-        transactionIO.addTransaction(newTransaction);
+        TransactionIO.addTransaction(newTransaction, filePath);
     }
     
     public void viewTransactions() {
         // Display all transactions
 
         System.out.println("TRANSACTIONS\n");
-        System.out.printf("%-15s %-20s %-10s %-10s%n", "Date", "Description", "Amount", "Type");
+        System.out.printf("%-15s %-20s %-10s %-10s%n", "Date", "Category", "Amount", "Type");
         System.out.println("------------------------------------------------------");
         // for each transaction in the array, print the details
         for (Transaction transaction : transactions) {
             System.out.printf("%-15s %-20s %-10.2f %-10s%n",
                     transaction.getDate(),
-                    transaction.getDescription(),
+                    transaction.getCategory(),
                     transaction.getAmount(),
                     transaction.getType());
         }
@@ -66,6 +65,7 @@ public class TransactionManager {
         }
 
         System.out.println("\n------------------------------------------------------");
+        
         BigDecimal incomeTotal = BigDecimal.ZERO;
         BigDecimal expenseTotal = BigDecimal.ZERO;
 
@@ -86,7 +86,7 @@ public class TransactionManager {
             System.out.printf("Total Expenses - $%.2f%n", expenseTotal);
         }
         else {
-            Map<String, BigDecimal> incomeMap = new TreeMap<>(); // use TreeMap to sort by description
+            Map<String, BigDecimal> incomeMap = new TreeMap<>(); // use TreeMap to sort by category
             Map<String, BigDecimal> expenseMap = new TreeMap<>();
 
             for (Transaction transaction : transactions) {
@@ -95,14 +95,14 @@ public class TransactionManager {
                 }
                   
                 if (transaction.getType() == TransactionType.INCOME) {
-                    incomeMap.put(transaction.getDescription().toUpperCase(), incomeMap.getOrDefault(transaction.getDescription().toUpperCase(), BigDecimal.ZERO).add(transaction.getAmount()));
+                    incomeMap.put(transaction.getCategory().toUpperCase(), incomeMap.getOrDefault(transaction.getCategory().toUpperCase(), BigDecimal.ZERO).add(transaction.getAmount()));
                     incomeTotal = incomeTotal.add(transaction.getAmount());
                 } else if (transaction.getType() == TransactionType.EXPENSE) {
-                    expenseMap.put(transaction.getDescription().toUpperCase(), expenseMap.getOrDefault(transaction.getDescription().toUpperCase(), BigDecimal.ZERO).add(transaction.getAmount()));
+                    expenseMap.put(transaction.getCategory().toUpperCase(), expenseMap.getOrDefault(transaction.getCategory().toUpperCase(), BigDecimal.ZERO).add(transaction.getAmount()));
                     expenseTotal = expenseTotal.add(transaction.getAmount());
                 }
             }
-
+            
             System.out.printf("\n%-20s %-15s%n", "Income", "Amount");
             System.out.println("-------------------------------------");
     

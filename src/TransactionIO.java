@@ -8,14 +8,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/* The purpose of this class is to handle the IO with the external csv file */
 public class TransactionIO {
-    private String filePath;
-
-    public TransactionIO(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public List<Transaction> loadTransactions() {
+    public static List<Transaction> loadTransactions(String filePath) {
         /* Load the transactions from the file into the transactions Array */
 
         List<Transaction> transactions = new ArrayList<>();
@@ -27,12 +22,12 @@ public class TransactionIO {
                 String[] parts = line.split(",");
                 if (parts.length == 4) {
                     LocalDate date = LocalDate.parse(parts[0].trim());
-                    String description = parts[1].trim();
+                    String category = parts[1].trim();
                     BigDecimal amount = new BigDecimal(parts[2].trim());
                     TransactionType type = TransactionType.valueOf(parts[3].trim().toUpperCase());
                     
                     // Add the transaction to the list
-                    transactions.add(new Transaction(date, description, amount, type));
+                    transactions.add(new Transaction(date, category, amount, type));
                 }
             }
         } catch (IOException e) {
@@ -42,8 +37,8 @@ public class TransactionIO {
         return transactions;
     }
 
-    public void addTransaction(Transaction transaction) {
-        /* Add the new transaction to the file */
+    public static void addTransaction(Transaction transaction, String filePath) {
+        /* Add a new transaction to the file */
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(transaction.toCsvLine());

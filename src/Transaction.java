@@ -1,15 +1,17 @@
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+// This class contains all the details of a transaction
+// It includes the date, category, amount, and type of transaction (expense or income)
 public class Transaction {
     private LocalDate date;
-    private String description;
+    private String category;
     private BigDecimal amount;
     private TransactionType type;
 
-    public Transaction(LocalDate date, String description, BigDecimal amount, TransactionType type) {
+    public Transaction(LocalDate date, String category, BigDecimal amount, TransactionType type) {
         this.date = date;
-        this.description = description;
+        this.category = category;
         this.amount = amount;
         this.type = type;
     }
@@ -18,8 +20,8 @@ public class Transaction {
         return date;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCategory() {
+        return category;
     }
 
     public BigDecimal getAmount() {
@@ -31,7 +33,7 @@ public class Transaction {
     }
     
     public String toCsvLine() {
-        /* Convert the transaction to a CSV line format */
-        return String.format("%s,%s,%.2f,%s", date, description, amount, type);
+        // Convert the transaction to a CSV line format 
+        return String.format("%s,%s,%.2f,%s", date, category, amount, type);
     }
 }

@@ -53,24 +53,24 @@ public class InputHelper {
         return date; // Return the valid date
     }
 
-    public static String promptForDescription(Scanner scanner, String prompt, int maxLength) {
-        /* Prompt the user for a description and return it */
+    public static String promptForCategory(Scanner scanner, String prompt, int maxLength) {
+        /* Prompt the user for a category and return it */
         
-        String description = ""; // Initialize description to an empty string
-        boolean validDescription = false; // Flag to check if the description is valid
+        String category = ""; // Initialize category to an empty string
+        boolean validCategory = false; // Flag to check if the category is valid
 
-        while (!validDescription) {
+        while (!validCategory) {
             System.out.print(prompt);
-            description = scanner.nextLine().trim(); // Read the input and trim whitespace
+            category = scanner.nextLine().trim(); // Read the input and trim whitespace
             
-            if (description.length() > 0 && description.length() <= maxLength) { // Check if the description is valid
-                validDescription = true; // If valid, set the flag to true
+            if (category.length() > 0 && category.length() <= maxLength) { // Check if the category is valid
+                validCategory = true; // If valid, set the flag to true
             } else {
-                System.out.printf("Description must be between 1 and %d characters. Please try again.%n", maxLength);
+                System.out.printf("Category must be between 1 and %d characters. Please try again.%n", maxLength);
             }
         }
 
-        return description; // Return the valid description
+        return category; // Return the valid category
     }
     
     public static BigDecimal promptForDollarAmount(Scanner scanner, String prompt, boolean allowNegative) {
