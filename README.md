@@ -4,7 +4,7 @@ This project is a text-based Expense Tracker application written in Java. It all
 
 My goal in writing this software was to gain hands-on experience with Java syntax and structure while learning how to build and organize a multi-class application. This project helped me become more comfortable with using the Java Collections Framework, working with file persistence, and applying key programming concepts like loops, conditionals, and encapsulation.
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/aKCZ3YXjkDA)
 
 # Development Environment
 
