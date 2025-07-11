@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -37,8 +40,34 @@ public class Main {
             currentDir = currentDir.substring(0, currentDir.length() - 3); // Remove the last 4 characters i.e. /src
         }
 
-        return Paths.get(currentDir, "data", "default.csv").toString(); // Construct the default file path
+        String defaultFilePath = Paths.get(currentDir, "data", "default.csv").toString(); // Construct the default file path
+        
+        if (!isValidFilePath(defaultFilePath)) {
+            createDefaultFile(defaultFilePath); // If the file does not exist, create the default file
+        }
+
+        return defaultFilePath; // Return the default file path
     }
+
+    private static boolean isValidFilePath(String filePath) {
+        /* Check if the file path is valid */
+        
+        // Check if the file exists and is readable
+        java.io.File file = new java.io.File(filePath);
+        return file.exists() && file.canRead();
+    }
+
+    private static void createDefaultFile(String filePath) {
+        /* Create the default file */
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
+            writer.write("Date,Category,Amount,Type"); // Write the header line to the file
+            writer.newLine(); // Add a new line after the header
+        } catch (IOException e) {
+            System.err.println("Error loading file: " + e.getMessage());
+        }
+    }
+
     private static void displayMainMenu() {  
         /* Display the Main Menu */
 
